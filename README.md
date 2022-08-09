@@ -1,5 +1,5 @@
 # nlp_model_prodigy
-Building a natural language processing custom model with annotation tool prodi.gy
+How to build a natural language processing model with annotation tool prodi.gy
 
 SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
 
@@ -27,11 +27,11 @@ The recipe with ner.correct creates data for NER by correcting the model’s sug
 
 Step 4: Initial training of the partially annotated data (named here: dataset) with component NER on word vector model in command prompt:
 
-The recipe calls into spaCy directly and can update an existing model or train a new model from scratch. Multiple datasets will be merged and conflicts will be filtered out.
+The recipe calls into spaCy directly and can update an existing model or train a new model from scratch.
 
 python -m prodigy train ner dataset en_vectors_web_lg
 
-Step 5: Generate a temporary model(tmp_model) using the dataset_correct trained in earlier step
+Step 5: Generate a temporary model(tmp_model) using the dataset trained in earlier step
 
 python -m prodigy train ner dataset en_vectors_web_lg — output C:\Users\yourname\Documents\tmp_model — eval-split 0.2 — n-iter 20
 
@@ -51,7 +51,7 @@ Step 9: Using new tmp model annotate further the text (yournextnexttext)creating
 
 python -m prodigy ner.correct dataset_correct3 C:\Users\yourname\Documents\tmp_model C:\Users\yourname\Documents\yournextnexttext.txt — label PERSON,ORG,GPE,LOC,EVENT,OUTPUT,MONEY,KEYWORD,GRANT,PRIZE,DISCIPLINE,JOURNAL,ACTIVITY,POSITION
 
-Step 10: creation of final model based on earlier four annotated datasets (dataset,dataset_correct,dataset_correct1, dataset_correct3)
+Step 10: creation of final model based on earlier four annotated datasets (dataset,dataset_correct,dataset_correct1, dataset_correct3). Multiple datasets will be merged and conflicts will be filtered out.
 
 python -m prodigy train ner dataset,dataset_correct,dataset_correct1,dataset_correct3 en_vectors_web_lg — output C:\Users\yourname\Documents\tmp_model — eval-split 0.2 — n-iter 40
 
