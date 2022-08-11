@@ -1,4 +1,4 @@
-# nlp_model_prodigy
+# NER_model_prodigy
 How to build a natural language processing model with annotation tool prodi.gy
 
 SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
