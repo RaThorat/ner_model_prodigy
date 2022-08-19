@@ -1,7 +1,9 @@
 # NER_model_prodigy
-How to build a natural language processing model with annotation tool prodi.gy
 
-SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
+How to build a named entity recognition custom model with annotation tool prodi.gy
+Note: the model was built last year June 2021 with Spacy 2.3.7. The codes are no longer up to date (august 2022). However this article gives a general idea how to build a model with prodi.gy.
+
+SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) named entity recognition models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
 
 An option to overcome this short comings of spaCy models is to create a custom model, based on the annotations of custom texts. By annotation, I mean you select a particular entity (example : Drosophilia melanogaster) in your text and label it accordingly (label: family Drosophilidae). You can then use the annotated texts as training data for the custom model. Unfortunately, manual annotation takes hours for just a couple of pages. Therefore the tool prodi.gy (https://prodi.gy/) is an added value during annotations of the custom text.
 
@@ -14,6 +16,10 @@ The buying proces is pretty straight forward. I choose for personal license plus
 Step 2: Installing prodi.gy via command Prompt from a wheel file, type:
 
 pip install C:\Users\yourname\Documents\prodigy-1.10.6-xxxxxxxxx-win_amd64.whl
+
+Update 15 Aug 2022: You can install the prodi.gy tool via pip and using license key at xxx below. More information on spacy https://prodi.gy/docs/install
+
+pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
 
 Step 3: Using spaCy pipeline to annotate text with Spacy model
 
@@ -57,6 +63,6 @@ python -m prodigy train ner dataset,dataset_correct,dataset_correct1,dataset_cor
 
 Step 11: To check whether more annotation will improve the model
 
-python -m prodigy train-curve ner dataset_1,dataset_2,dataset_3,dataset_4 C:\Users\yourname\Documents\Python_scripts\repo_model — n-iter 10
+python -m prodigy train-curve ner dataset_1,dataset_2,dataset_3,dataset_4 C:\Users\yourname\Documents\Python_scripts\tmp_model — n-iter 10
 
 P.S. I am not paid by prodi.gy for sharing my experience with the annotation tool.
