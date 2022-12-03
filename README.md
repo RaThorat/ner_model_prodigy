@@ -1,3 +1,56 @@
+# A simple named entity recognition custom model from scratch with annotation tool prodi.gy
+Update: A new model is build with Spacy 3 on 12 November 2022.
+
+Creation of virtual environment (prodigy-env) in ubuntu
+Step. Open the folder in terminal, where you want to create virtual environment with (ctrl+alt+t)
+
+Step. type in the terminal
+
+python3 -m venv prodigy-env
+Step. (You can see that there is prodigy-env in the folder you have opened in the terminal)
+
+Step. How to open prodi.gy environment? Open the folder where your prodigy-env folder is and then type following:
+
+source prodigy-env/bin/activate
+Step. You will see that on the left side of the terminal that you are in the virtual environment
+
+Start annotating with new text
+Step. Download en_core_web_sm or en_core_web_lg model for annotating by typing 'pip install model_name' in the virtual environment.
+
+Step. Keep your text ready in the folder where virtual environment is (this is not necessary if you know the path to file).
+
+Step Type the command from prodigy website to annotate
+
+prodigy ner.manual test_dataset en_core_web_lg /home/gebruiker/anaconda3/envs/test.txt - label PERSON,ORG,PRODUCT
+where,
+
+ner.manual is the recipe,
+
+test_dataset is the annotation dataset (to be created),
+
+en_core_web_lg is the Spacy model used to annotate,
+
+/home/gebruiker/anaconda3/envs/test.txt is the path where your test.txt is for annotation and
+
+— label PERSON,ORG,PRODUCT are the labels. You can add or change the labels as you like.
+
+At the first run, prodigy creates prodigy.db and prodigy.json in the home folder.
+
+Model creation
+Step. Type following to create model:
+
+prodigy train /home/gebruiker/Documenten/ - ner test_dataset
+where,
+
+train is the recipe,
+
+/home/gebruiker/Documenten/ is the path where the model will be saved
+
+— ner is to create NER model
+
+test_dataset is the annotated dataset from previous step
+
+Previous version of this article with detailed building of models with Spacy 2
 # NER_model_prodigy
 
 How to build a named entity recognition custom model with annotation tool prodi.gy
