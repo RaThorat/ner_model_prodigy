@@ -40,7 +40,8 @@ en_core_web_lg is the Spacy model used to annotate,
 
 At the first run, prodigy creates prodigy.db and prodigy.json in the home folder.
 
-Model creation
+
+## Model creation
 
 Step. Type following to create model:
 
