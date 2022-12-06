@@ -33,6 +33,7 @@ Update 15 Aug 2022: You can install the prodi.gy tool via pip and using license 
 pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
 
 Creation of virtual environment (prodigy-env) in ubuntu
+
 Step. Open the folder in terminal, where you want to create virtual environment with (ctrl+alt+t)
 
 Step. type in the terminal
@@ -112,6 +113,7 @@ Step setup a google cloud compute engine as shown in various youtube videos. I u
 
 Step install prodigy inside the VM instance ssh. The installation of prodigy is similar to any local ubuntu laptop.
 pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
+
 Step Create sqlite3 database
 Create a test.txt with some text inside it. Use the following code to create test_dataset
 
@@ -135,6 +137,7 @@ Step upload the prodigy.db from your local storage to virtual machine using the 
 
 # How to transfer prodigyold.db (containing older prodigy annotated dataset) to new prodigy.db
 Step: move the old database file to the folder .prodigy.
+
 Check if the database name doesnot contain any spaces or symobls (otherwise you will get error in following steps). Now your .prodigy folder contains two database files (prodigy.db and prodigyold.db) and a json file (prodigy.json).
 
 Step: change the name of the db file in the prodigy.json
