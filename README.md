@@ -43,9 +43,11 @@ Step. (You can see that there is prodigy-env in the folder you have opened in th
 Step. How to open prodi.gy environment? Open the folder where your prodigy-env folder is and then type following:
 
 source prodigy-env/bin/activate
+
 Step. You will see that on the left side of the terminal that you are in the virtual environment
 
 Start annotating with new text
+
 Step. Download en_core_web_sm or en_core_web_lg model for annotating by typing 'pip install model_name' in the virtual environment.
 
 Step. Keep your text ready in the folder where virtual environment is (this is not necessary if you know the path to file).
@@ -67,7 +69,8 @@ en_core_web_lg is the Spacy model used to annotate,
 
 At the first run, prodigy creates prodigy.db and prodigy.json in the home folder.
 
-Model creation
+# Model creation
+
 Step. Type following to create model:
 
 prodigy train /home/gebruiker/Documenten/ - ner test_dataset
