@@ -3,12 +3,16 @@ Update: A new model is build with Spacy3 on 12 November 2022 for grant applicati
 
 !pip install https://huggingface.co/RaThorat/en_grant/resolve/main/en_grant-any-py3-none-any.whl
 
-# Using spacy.load().
+#Using spacy.load().
+
 import spacy
+
 nlp = spacy.load(“en_grant”)
 
-# Importing as module.
+#Importing as module.
+
 import en_grant
+
 nlp = en_grant.load()
 
 SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) named entity recognition models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
