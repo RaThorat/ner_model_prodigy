@@ -1,23 +1,47 @@
 # A simple named entity recognition custom model from scratch with annotation tool prodi.gy
-Update: A new model is build with Spacy 3 on 12 November 2022.
+Update: A new model is build with Spacy3 on 12 November 2022 for grant applications. You can use it via:
+
+!pip install https://huggingface.co/RaThorat/en_grant/resolve/main/en_grant-any-py3-none-any.whl
+
+# Using spacy.load().
+import spacy
+nlp = spacy.load(“en_grant”)
+
+# Importing as module.
+import en_grant
+nlp = en_grant.load()
+
+SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) named entity recognition models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
+
+An option to overcome this short comings of spaCy models is to create a custom model, based on the annotations of custom texts. By annotation, I mean you select a particular entity (example : Drosophilia melanogaster) in your text and label it accordingly (label: family Drosophilidae). You can then use the annotated texts as training data for the custom model. Unfortunately, manual annotation takes hours for just a couple of pages. Therefore the tool prodi.gy (https://prodi.gy/) is an added value during annotations of the custom text.
+
+Prodi.gy uses the same inbuilt model from spacy to annotate the text, but you can correct those annotations in a web browser. You can also add labels (eg, repository, license, output). For example, Drosophilia is a ‘keyword’ or a ‘research subject’ in the text. This way you can build your own custom model.
+
+Step 1: Buying annotation software from the https://prodi.gy/
+The buying process was pretty straight forward. I choose for personal license plus some charges, total around 475 euros. My boss was happy to reimburse it from the yearly budget. You get an email with download button. Download the software to your preferred folder (Documents in my case).
+
+# Using prodigy on your laptop
+Installing prodi.gy via command Prompt from a wheel file, type:
+pip install C:\Users\yourname\Documents\prodigy-1.10.6-xxxxxxxxx-win_amd64.whl
+
+Update 15 Aug 2022: You can install the prodi.gy tool via pip and using license key at xxx below. More information on spacy https://prodi.gy/docs/install
+
+pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
 
 Creation of virtual environment (prodigy-env) in ubuntu
 Step. Open the folder in terminal, where you want to create virtual environment with (ctrl+alt+t)
 
-Step. type in the terminal 
+Step. type in the terminal
 
 python3 -m venv prodigy-env
-
 Step. (You can see that there is prodigy-env in the folder you have opened in the terminal)
 
 Step. How to open prodi.gy environment? Open the folder where your prodigy-env folder is and then type following:
 
 source prodigy-env/bin/activate
-
 Step. You will see that on the left side of the terminal that you are in the virtual environment
 
 Start annotating with new text
-
 Step. Download en_core_web_sm or en_core_web_lg model for annotating by typing 'pip install model_name' in the virtual environment.
 
 Step. Keep your text ready in the folder where virtual environment is (this is not necessary if you know the path to file).
@@ -25,7 +49,6 @@ Step. Keep your text ready in the folder where virtual environment is (this is n
 Step Type the command from prodigy website to annotate
 
 prodigy ner.manual test_dataset en_core_web_lg /home/gebruiker/anaconda3/envs/test.txt - label PERSON,ORG,PRODUCT
-
 where,
 
 ner.manual is the recipe,
@@ -40,13 +63,10 @@ en_core_web_lg is the Spacy model used to annotate,
 
 At the first run, prodigy creates prodigy.db and prodigy.json in the home folder.
 
-
-## Model creation
-
+Model creation
 Step. Type following to create model:
 
 prodigy train /home/gebruiker/Documenten/ - ner test_dataset
-
 where,
 
 train is the recipe,
@@ -57,12 +77,104 @@ train is the recipe,
 
 test_dataset is the annotated dataset from previous step
 
-Previous version of this article with detailed building of models with Spacy 2 below
-# NER_model_prodigy
+#Renaming the labels in NER
+If you are not satisfied with the labels you gave during annotation, you can change via following process.
 
-How to build a named entity recognition custom model with annotation tool prodi.gy
+My annotated data contains 24 labels, which I think are a lot. I would like to reduce the number labels, for example, change labels ‘grant’ and ‘prize’ to label ‘award’. Another example would be to merge ‘event’, ‘activity’, ‘output’ ‘product’ to ‘product’.
 
-Note: the model was built last year June 2021 with Spacy 2.3.7. The codes are no longer up to date (august 2022). However this article gives a general idea how to build a model with prodi.gy.
+Step: export the annotated dataset as jsonl file by using following command in the terminal
+
+prodigy db-out dataset > ./data.jsonl
+
+Step: install jq via the terminal with code
+
+sudo apt-get install jq
+
+Step: use following code to change the labels
+
+sed 's,"label":"OLD_LABEL","label":"NEW_LABEL",g' old_data.jsonl > new_data.jsonl
+
+You can reintegrate this new data jsonl file in the dataset of your prodigy database by command db-in:
+
+prodigy db-in new_dataset ./new_data.jsonl --rehash
+
+# Using prodigy in virtual machine Google cloud compute engine
+My database with annotated data is 200 MB. When i tried to create a model the process got killed. I suspected it it a RAM problem as my laptop have only 4 gb RAM. Therefore Idecided to use virtual machine by one of the providers Google. On the prodigy forum I got to know of Compute engine. I have never used virtual machine before for computing.
+
+Step setup a google cloud compute engine as shown in various youtube videos. I used Compute Engine with 64 GB RAM and ubuntu boot disk.
+
+Step install prodigy inside the VM instance ssh. The installation of prodigy is similar to any local ubuntu laptop.
+pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
+Step Create sqlite3 database
+Create a test.txt with some text inside it. Use the following code to create test_dataset
+
+prodigy ner.manual test_dataset en_core_web_lg ./test.txt - label PERSON,ORG,PRODUCT
+where,
+
+ner.manual is the recipe,
+
+test_dataset is the annotation dataset (to be created),
+
+en_core_web_lg is the Spacy model used to annotate,
+
+./test.txt is the path where your test.txt is for annotation and
+
+— label PERSON,ORG,PRODUCT are the labels. You can add or change the labels as you like.
+
+At the first run, prodigy creates prodigy.db and prodigy.json in the home folder.
+
+# Transfer your prodigyold.db file from local place (from your local laptop) to virtual machine using ssh terminal
+Step upload the prodigy.db from your local storage to virtual machine using the button ‘upload’ in ssh terminal. Move the old database file to the folder .prodigy. How to combine/merge the old database with the new database? The procedure is given below.
+
+# How to transfer prodigyold.db (containing older prodigy annotated dataset) to new prodigy.db
+Step: move the old database file to the folder .prodigy.
+Check if the database name doesnot contain any spaces or symobls (otherwise you will get error in following steps). Now your .prodigy folder contains two database files (prodigy.db and prodigyold.db) and a json file (prodigy.json).
+
+Step: change the name of the db file in the prodigy.json
+
+{
+  "db": "sqlite",
+  "db_settings": {
+    "sqlite": {
+      "name": "prodigyold.db",
+      "path": "./.prodigy"
+    }
+  }
+}
+This step can be done within ssh terminal using vi commands (more info on internet). Else, the file can be edited in the local enviornment and then uploaded in ssh terminal, and moved to .prodigy folder as told for the database above.
+
+Step: Check which datasets are there in your old database by typing following command
+
+prodigy stats -l
+
+The result shows number of datasets, sessions and name of the datasets as well. There is only one dataset in my case (old_dataset). A model can be created, just by using old dataset without having to hydrate new database:
+
+prodigy train /home/gebruiker/Documenten/ — ner old_dataset
+
+However, it is a good practice to use those datasets to export the annotated data as JSONL files as shown below.
+
+Step: Export the old prodigyold.db dataset using db-out command to produce a JSONL file.
+Beware: before executing the db-out command, give the name of the old database (‘prodigyold.db’ in my case) in the prodigy.json file, shown above.
+
+prodigy db-out old_dataset > ./old_data.jsonl
+
+Step: change the name of the db file again in the prodigy.json
+
+{
+  "db": "sqlite",
+  "db_settings": {
+    "sqlite": {
+      "name": "prodigy.db",
+      "path": "./.prodigy"
+    }
+  }
+}
+Step: create new_dataset in the prodigy.db using the annotated old_data.jsonl
+prodigy db-in new_dataset ./old_data.jsonl --rehash
+You can use the new_dataset to create a model using prodigy train recipe.
+
+# Previous version of this article with detailed building of models with Spacy 2
+# Note: the model was built last year June 2021 with Spacy 2.3.7. The codes are no longer up to date (august 2022). However this article gives a general idea how to build a model with prodi.gy.
 
 SpaCy can be used to extract entities from a given text. You can use some of the available natural language models from spaCy to extract information such as personsname, organisation name or location from the text. The natural language processing (NLP) named entity recognition models such as en_core_web_lg are trained on wikipedia and on a number of web pages. However, the model does not recognize custom-specific entities such as name of animal species or an academic award. However if you want to have custom labels, say discipline names, or prize name from the text, it is better to build your own custom model.
 
