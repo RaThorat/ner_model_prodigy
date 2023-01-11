@@ -107,7 +107,7 @@ You can reintegrate this new data jsonl file in the dataset of your prodigy data
 prodigy db-in new_dataset ./new_data.jsonl --rehash
 
 # Using prodigy in virtual machine Google cloud compute engine
-My database with annotated data is 200 MB. When i tried to create a model the process got killed. I suspected it it a RAM problem as my laptop have only 4 gb RAM. Therefore Idecided to use virtual machine by one of the providers Google. On the prodigy forum I got to know of Compute engine. I have never used virtual machine before for computing.
+My database with annotated data is 200 MB. When i tried to create a model the process got killed. I suspected it is a RAM problem as my laptop have only 4 gb RAM. Therefore I decided to use virtual machine by one of the providers Google. On the prodigy forum I got to know of Compute engine. I have never used virtual machine before.
 
 Step setup a google cloud compute engine as shown in various youtube videos. I used Compute Engine with 64 GB RAM and ubuntu boot disk.
 
