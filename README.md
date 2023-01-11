@@ -34,26 +34,27 @@ pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
 
 Creation of virtual environment (prodigy-env) in ubuntu
 
-Step. Open the folder in terminal, where you want to create virtual environment with (ctrl+alt+t)
+Step: Open the folder in terminal, where you want to create virtual environment with (ctrl+alt+t)
 
-Step. type in the terminal
+Step: type in the terminal
 
 python3 -m venv prodigy-env
-Step. (You can see that there is prodigy-env in the folder you have opened in the terminal)
 
-Step. How to open prodi.gy environment? Open the folder where your prodigy-env folder is and then type following:
+Step: (You can see that there is prodigy-env in the folder you have opened in the terminal)
+
+Step: How to open prodi.gy environment? Open the folder where your prodigy-env folder is and then type following:
 
 source prodigy-env/bin/activate
 
-Step. You will see that on the left side of the terminal that you are in the virtual environment
+Step: You will see that on the left side of the terminal that you are in the virtual environment
 
 Start annotating with new text
 
-Step. Download en_core_web_sm or en_core_web_lg model for annotating by typing 'pip install model_name' in the virtual environment.
+Step: Download en_core_web_sm or en_core_web_lg model for annotating by typing 'pip install model_name' in the virtual environment.
 
-Step. Keep your text ready in the folder where virtual environment is (this is not necessary if you know the path to file).
+Step: Keep your text ready in the folder where virtual environment is (this is not necessary if you know the path to file).
 
-Step Type the command from prodigy website to annotate
+Step: Type the command from prodigy website to annotate
 
 prodigy ner.manual test_dataset en_core_web_lg /home/gebruiker/anaconda3/envs/test.txt - label PERSON,ORG,PRODUCT
 where,
@@ -72,7 +73,7 @@ At the first run, prodigy creates prodigy.db and prodigy.json in the home folder
 
 # Model creation
 
-Step. Type following to create model:
+Step: Type following to create model:
 
 prodigy train /home/gebruiker/Documenten/ - ner test_dataset
 where,
@@ -109,12 +110,12 @@ prodigy db-in new_dataset ./new_data.jsonl --rehash
 # Using prodigy in virtual machine Google cloud compute engine
 My database with annotated data is 200 MB. When i tried to create a model the process got killed. I suspected it is a RAM problem as my laptop have only 4 gb RAM. Therefore I decided to use virtual machine by one of the providers Google. On the prodigy forum I got to know of Compute engine. I have never used virtual machine before.
 
-Step setup a google cloud compute engine as shown in various youtube videos. I used Compute Engine with 64 GB RAM and ubuntu boot disk.
+Step: setup a google cloud compute engine as shown in various youtube videos. I used Compute Engine with 64 GB RAM and ubuntu boot disk.
 
-Step install prodigy inside the VM instance ssh. The installation of prodigy is similar to any local ubuntu laptop.
+Step: install prodigy inside the VM instance ssh. The installation of prodigy is similar to any local ubuntu laptop.
 pip install prodigy -f https://xxxx-xxxx-xxxx@download.prodi.gy
 
-Step Create sqlite3 database
+Step: Create sqlite3 database
 Create a test.txt with some text inside it. Use the following code to create test_dataset
 
 prodigy ner.manual test_dataset en_core_web_lg ./test.txt - label PERSON,ORG,PRODUCT
@@ -133,7 +134,7 @@ en_core_web_lg is the Spacy model used to annotate,
 At the first run, prodigy creates prodigy.db and prodigy.json in the home folder.
 
 # Transfer your prodigyold.db file from local place (from your local laptop) to virtual machine using ssh terminal
-Step upload the prodigy.db from your local storage to virtual machine using the button ‘upload’ in ssh terminal. Move the old database file to the folder .prodigy. How to combine/merge the old database with the new database? The procedure is given below.
+Step: upload the prodigy.db from your local storage to virtual machine using the button ‘upload’ in ssh terminal. Move the old database file to the folder .prodigy. How to combine/merge the old database with the new database? The procedure is given below.
 
 # How to transfer prodigyold.db (containing older prodigy annotated dataset) to new prodigy.db
 Step: move the old database file to the folder .prodigy.
