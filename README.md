@@ -1,5 +1,5 @@
 # A simple named entity recognition custom model from scratch with annotation tool prodi.gy
-Update: Update 3 January: Three variants of the model is built with Spacy3 for grant applications. The most general model 'en_grantss' you can use it via::
+Update: Update 3 January 2023: Three variants of the model is built with Spacy3 for grant applications. The most general model 'en_grantss' you can use it via::
 
 !pip install https://huggingface.co/RaThorat/en_grantss/resolve/main/en_grantss-any-py3-none-any.whl
 
